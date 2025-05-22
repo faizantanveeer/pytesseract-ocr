@@ -6,6 +6,11 @@ import io
 
 app = FastAPI()
 
+
+@app.get("/")
+def home():
+    return {"message": "API is working"}
+
 @app.post("/ocr/")
 async def ocr(file: UploadFile = File(...)):
     try:
