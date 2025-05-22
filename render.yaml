@@ -1,3 +1,6 @@
+build:
+  skipPoetryInstall: true
+
 services:
   - type: web
     name: fastapi-ocr
