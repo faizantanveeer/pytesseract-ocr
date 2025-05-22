@@ -1,15 +1,9 @@
-build:
-  skipPoetryInstall: true
-
 services:
   - type: web
     name: fastapi-ocr
-    runtime: python
-    buildCommand: |
-      apt-get update && apt-get install -y tesseract-ocr python-multipart
-      pip install --upgrade pip
-      pip install fastapi uvicorn pillow pytesseract 
-    startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: PORT
         value: 10000
