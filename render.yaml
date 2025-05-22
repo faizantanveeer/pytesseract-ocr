@@ -6,9 +6,9 @@ services:
     name: fastapi-ocr
     runtime: python
     buildCommand: |
-      apt-get update && apt-get install -y tesseract-ocr
+      apt-get update && apt-get install -y tesseract-ocr python-multipart
       pip install --upgrade pip
-      pip install fastapi uvicorn pillow pytesseract
+      pip install fastapi uvicorn pillow pytesseract 
     startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
     envVars:
       - key: PORT
