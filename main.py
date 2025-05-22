@@ -11,19 +11,7 @@ app = FastAPI()
 def preprocess_image(image_bytes):
     # Open image and convert to grayscale
     image = Image.open(io.BytesIO(image_bytes)).convert('L')
-
-    # Resize to half (faster processing)
-    image = image.resize((image.width // 2, image.height // 2))
-
-    # Convert to OpenCV format
-    image_cv = np.array(image)
-
-    # Apply binary threshold
-    _, thresh = cv2.threshold(image_cv, 150, 255, cv2.THRESH_BINARY)
-
-    # Convert back to PIL Image
-    processed_image = Image.fromarray(thresh)
-    return processed_image
+    return image
 
 @app.get("/")
 def home():
@@ -36,7 +24,7 @@ async def ocr(file: UploadFile = File(...)):
         processed_image = preprocess_image(contents)
 
         # Use Tesseract with optimized config
-        custom_config = r'--oem 1 --psm 6'
+        custom_config = r'--oem 3 --psm 3'
         text = pytesseract.image_to_string(processed_image, config=custom_config)
         
 
